@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import AppShell from '@/components/layout/AppShell.vue'
 </script>
 
 <template>
-  <div class="min-h-screen bg-neutral-950 text-white">
+  <AppShell padded>
     <RouterView />
-  </div>
+  </AppShell>
 </template>

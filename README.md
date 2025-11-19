@@ -50,3 +50,93 @@ npm run test:unit
 ```sh
 npm run lint
 ```
+
+## Recreating the Vue + Tailwind + PWA Stack
+
+Follow these steps whenever you need to spin up a fresh project identical to this one.
+
+1. **Scaffold the Vue project**
+   ```sh
+   npm create vue@latest your-app-name -- --ts --router --pinia --vitest --eslint-with-prettier
+   ```
+   - Choose TypeScript, Vue Router, Pinia, Vitest, and ESLint + Prettier when prompted.
+   - Move into the new folder and install dependencies: `cd your-app-name && npm install`.
+
+2. **Add Tailwind CSS v3**
+   ```sh
+   npm install -D tailwindcss@3.4.15 postcss@8.4.49 autoprefixer@10.4.20
+   npx tailwindcss init -p
+   ```
+   - Update `tailwind.config.js` to scan Vue files:
+     ```js
+     export default {
+       content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+       theme: { extend: {} },
+       plugins: [],
+     }
+     ```
+   - Replace `src/assets/main.css` with Tailwind directives:
+     ```css
+     @tailwind base;
+     @tailwind components;
+     @tailwind utilities;
+     ```
+
+3. **Hook Tailwind into the app shell**
+   - In `src/App.vue`, wrap the router view with Tailwind-friendly layout classes, e.g.:
+     ```vue
+     <template>
+       <div class="min-h-screen bg-neutral-950 text-white">
+         <RouterView />
+       </div>
+     </template>
+     ```
+
+4. **Install and configure PWA support**
+   ```sh
+   npm install -D vite-plugin-pwa@1.1.0
+   ```
+   - Extend `vite.config.ts`:
+     ```ts
+     import { VitePWA } from 'vite-plugin-pwa'
+
+     export default defineConfig({
+       plugins: [
+         vue(),
+         vueDevTools(),
+         VitePWA({
+           registerType: 'autoUpdate',
+           includeAssets: ['favicon.ico'],
+           devOptions: { enabled: true },
+           manifest: {
+             name: 'Your App',
+             short_name: 'App',
+             description: 'Describe your PWA here.',
+             theme_color: '#0ea5e9',
+             background_color: '#111827',
+             display: 'standalone',
+             start_url: '/',
+             icons: [
+               { src: '/pwa-192x192.png', sizes: '192x192', type: 'image/png' },
+               { src: '/pwa-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
+             ],
+           },
+         }),
+       ],
+     })
+     ```
+   - Add icon assets (e.g., `pwa-192x192.png`, `pwa-512x512.png`) to `public/`.
+
+5. **Verify everything works**
+   ```sh
+   npm run dev -- --host
+   ```
+   - Confirm Tailwind classes render and the service worker registers (check dev tools > Application > Service Workers).
+
+6. **Optional tooling**
+   - Initialize Git: `git init && git add . && git commit -m "feat: scaffold"`.
+   - Push to GitHub: `git remote add origin <repo-url>` then `git push -u origin main`.
+
+7. **Next steps**
+   - Replace starter components in `src/views` with your designs.
+   - Keep styles in Tailwind classes, extract reusable Vue components, and ensure README instructions stay updated.

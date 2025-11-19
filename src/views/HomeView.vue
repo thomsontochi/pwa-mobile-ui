@@ -1,128 +1,91 @@
 <script setup lang="ts">
-const shortcuts = [
-  { id: 1, label: 'Papara Sticker', icon: '🎫', hasAlert: true },
-  { id: 2, label: 'Superman Card', icon: '🦸‍♂️' },
-  { id: 3, label: 'e-Şans 150 TL', icon: '🎯' },
-  { id: 4, label: 'Yatırım Hesabı', icon: '💹' },
-  { id: 5, label: 'Altın Hediyem', icon: '🥇' },
-]
+import AppIcon from '@/components/common/AppIcon.vue'
+import HomeTopBar from '@/components/home/HomeTopBar.vue'
+import HomeShortcuts from '@/components/home/HomeShortcuts.vue'
+import ProductCarousel from '@/components/home/ProductCarousel.vue'
+import AlertBanner from '@/components/home/AlertBanner.vue'
+import QuickActionsGrid from '@/components/home/QuickActionsGrid.vue'
+import ActivityList from '@/components/home/ActivityList.vue'
 
-const quickActions = [
-  { id: 1, label: 'Yatır / Çek' },
-  { id: 2, label: 'Gönder' },
-  { id: 3, label: 'İste' },
-]
-
-const accountActivities = [
-  { id: 1, name: 'Hidayet Salt', type: 'FAST Para Transferi', amount: '-20.000,00', time: '14 Eylül 2025 20:14' },
-  { id: 2, name: 'Garanti BBVA', type: 'FAST Para Transferi', amount: '+20.000,00', time: '14 Eylül 2025 20:12' },
-]
+import {
+  accountActivities,
+  alertBanners,
+  homeShortcuts,
+  productSlides,
+  quickActions,
+} from '@/data/homeContent'
 </script>
 
 <template>
-  <main class="mx-auto flex min-h-screen max-w-sm flex-col gap-6 bg-neutral-950 px-4 pb-8 pt-10">
-    <header class="flex items-center justify-between">
-      <button class="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 ring-1 ring-neutral-800">
-        <span class="sr-only">Open menu</span>
-        <span aria-hidden="true" class="text-lg">☰</span>
-      </button>
-      <div class="flex items-center gap-3">
-        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 ring-1 ring-neutral-800">
-          <span class="text-lg">🔔</span>
-        </div>
-        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 ring-1 ring-neutral-800">
-          <span class="text-lg">👤</span>
-        </div>
-      </div>
-    </header>
+  <main class="flex flex-col gap-6">
+    <HomeTopBar :notifications="7" :messages="2" account-label="•••• 1234" avatar-initials="AU" />
 
-    <section class="flex gap-3 overflow-x-auto pb-2">
-      <article
-        v-for="shortcut in shortcuts"
-        :key="shortcut.id"
-        class="relative flex w-24 shrink-0 flex-col items-center gap-2 rounded-2xl bg-neutral-900 p-3 text-center text-xs font-medium text-neutral-200"
-      >
-        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-neutral-800 text-lg">
-          <span aria-hidden="true">{{ shortcut.icon }}</span>
-        </div>
-        <span class="leading-tight">{{ shortcut.label }}</span>
-        <span
-          v-if="shortcut.hasAlert"
-          class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-rose-500 text-[10px] font-semibold"
-        >
-          •
-        </span>
-      </article>
-    </section>
+    <HomeShortcuts :items="homeShortcuts" />
 
-    <section class="rounded-3xl bg-neutral-900 p-5 text-neutral-100">
-      <div class="mb-6 flex items-start justify-between">
-        <div>
-          <p class="text-xs uppercase tracking-wide text-neutral-400">Türk Lirası Hesabı</p>
-          <p class="mt-4 text-4xl font-semibold">₺0,00</p>
-          <p class="mt-1 text-xs text-neutral-500">IBAN • TR05 …</p>
-        </div>
-        <div class="flex flex-col items-end gap-2 text-right text-xs text-neutral-400">
-          <span class="flex items-center gap-2 rounded-full bg-neutral-800 px-3 py-1">
-            <span class="inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
-            Aktif
-          </span>
-          <span class="rounded-full bg-neutral-800 px-3 py-1">•••</span>
-        </div>
-      </div>
-      <div class="grid grid-cols-3 gap-3">
-        <button
-          v-for="action in quickActions"
-          :key="action.id"
-          class="rounded-2xl bg-neutral-800 px-4 py-3 text-sm font-semibold text-neutral-200 transition hover:bg-neutral-700"
-        >
-          {{ action.label }}
-        </button>
-      </div>
-    </section>
+    <ProductCarousel :slides="productSlides" />
 
-    <section class="rounded-3xl bg-neutral-900 p-5 text-neutral-200">
-      <header class="mb-4 flex items-center justify-between text-sm font-semibold">
-        <span>Hesap Hareketleri</span>
-        <button class="text-xs text-sky-400">Tümü →</button>
-      </header>
-      <ul class="space-y-4 text-sm">
-        <li v-for="activity in accountActivities" :key="activity.id" class="flex items-start justify-between">
-          <div>
-            <p class="font-medium">{{ activity.name }}</p>
-            <p class="text-xs text-neutral-400">{{ activity.type }}</p>
-            <p class="text-xs text-neutral-500">{{ activity.time }}</p>
+    <AlertBanner v-for="banner in alertBanners" :key="banner.id" :item="banner" />
+
+    <QuickActionsGrid :actions="quickActions" />
+
+    <ActivityList :activities="accountActivities" />
+
+    <section class="space-y-3 rounded-3xl bg-brand-card px-5 py-6 shadow-card">
+      <header class="flex items-center justify-between">
+        <div class="flex items-center gap-2 text-brand-text-secondary">
+          <div class="flex h-9 w-9 items-center justify-center rounded-2xl bg-brand-control text-brand-text-primary">
+            <AppIcon name="lock" :stroke-width="2" />
           </div>
-          <p :class="activity.amount.startsWith('-') ? 'text-rose-400' : 'text-emerald-400'">
-            {{ activity.amount }}
-          </p>
-        </li>
-      </ul>
+          <div>
+            <p class="text-sm font-semibold text-brand-text-primary">Cashback</p>
+            <p class="text-xs text-brand-text-secondary">₺500 harcama hedefini tamamla, Cashback kazanmaya başla.</p>
+          </div>
+        </div>
+        <AppIcon name="info" :stroke-width="2" />
+      </header>
+
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-xs text-brand-text-secondary">
+          <span>₺500,00 kaldı</span>
+          <span>%0 Tamamlandı</span>
+        </div>
+        <div class="h-2 w-full overflow-hidden rounded-full bg-brand-control">
+          <div class="h-full w-1/6 rounded-full bg-accent-amber"></div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex items-center gap-3 rounded-3xl bg-brand-control px-4 py-4">
+        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-amber/20 text-brand-text-primary">
+          <AppIcon name="sparkles" :stroke-width="2" />
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-brand-text-primary">₺960 anında nakit kazan</p>
+          <p class="text-xs text-brand-text-secondary">Ekim 2025 kampanyasını kaçırma</p>
+        </div>
+      </div>
     </section>
 
-    <footer class="mt-auto rounded-3xl bg-neutral-900 px-4 py-5">
-      <nav class="flex items-center justify-between text-xs text-neutral-400">
-        <button class="flex flex-col items-center gap-1 text-sky-400">
-          <span class="text-lg">🏠</span>
-          Ana Sayfa
-        </button>
-        <button class="flex flex-col items-center gap-1">
-          <span class="text-lg">🔍</span>
-          QR İşlemleri
-        </button>
-        <button class="flex flex-col items-center gap-1">
-          <span class="text-lg">💸</span>
-          Para Transferi
-        </button>
-        <button class="flex flex-col items-center gap-1">
-          <span class="text-lg">📄</span>
-          Ödemeler
-        </button>
-        <button class="flex flex-col items-center gap-1">
-          <span class="text-lg">💳</span>
-          Papara Card
-        </button>
-      </nav>
-    </footer>
+    <nav class="mt-6 flex items-center justify-between rounded-3xl bg-brand-card px-6 py-4 text-xs text-brand-text-secondary">
+      <button class="flex flex-col items-center gap-1 text-brand-text-primary">
+        <AppIcon name="home" :stroke-width="2" />
+        Ana Sayfa
+      </button>
+      <button class="flex flex-col items-center gap-1">
+        <AppIcon name="qr-code" :stroke-width="2" />
+        QR İşlemleri
+      </button>
+      <button class="flex flex-col items-center gap-1">
+        <AppIcon name="send" :stroke-width="2" />
+        Para Transferi
+      </button>
+      <button class="flex flex-col items-center gap-1">
+        <AppIcon name="wallet" :stroke-width="2" />
+        Ödemeler
+      </button>
+      <button class="flex flex-col items-center gap-1">
+        <AppIcon name="credit-card" :stroke-width="2" />
+        Papara Card
+      </button>
+    </nav>
   </main>
 </template>
