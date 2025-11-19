@@ -13,6 +13,9 @@ export interface ProductSlide {
   badgeLabel?: string
   illustration: string
   accentColor: string
+  details?: string[]
+  primaryCta?: string
+  secondaryCta?: string
 }
 
 export interface AlertBanner {
@@ -55,4 +58,17 @@ export interface BottomNavItem {
   label: string
   icon: string
   route: string
+}
+
+export interface ActionSheetOption {
+  id: number
+  label: string
+  icon: string
+}
+
+export interface ActionSheet {
+  id: string
+  title: string
+  options: ActionSheetOption[]
+  cancelLabel?: string
 }

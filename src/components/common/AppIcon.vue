@@ -174,6 +174,50 @@ const iconLibrary: Record<string, IconDefinition> = {
       { tag: 'path', attrs: { d: 'M18.5 13.5 19 15 20.5 15.5 19 16 18.5 17.5 18 16 16.5 15.5 18 15z' } },
     ],
   },
+  globe: {
+    nodes: [
+      { tag: 'circle', attrs: { cx: 12, cy: 12, r: 9 } },
+      { tag: 'path', attrs: { d: 'M3 12h18' } },
+      { tag: 'path', attrs: { d: 'M12 3a15.3 15.3 0 0 1 4 9 15.3 15.3 0 0 1-4 9 15.3 15.3 0 0 1-4-9 15.3 15.3 0 0 1 4-9' } },
+    ],
+  },
+  shield: {
+    nodes: [
+      { tag: 'path', attrs: { d: 'M12 3 4.5 6v6c0 5.25 3.75 9.75 7.5 10.5 3.75-.75 7.5-5.25 7.5-10.5V6z' } },
+      { tag: 'path', attrs: { d: 'm9 12 2 2 4-4' } },
+    ],
+  },
+  refresh: {
+    nodes: [
+      { tag: 'path', attrs: { d: 'M21 12a9 9 0 1 1-3-6.7' } },
+      { tag: 'path', attrs: { d: 'M21 3v6h-6' } },
+    ],
+  },
+  scan: {
+    nodes: [
+      { tag: 'path', attrs: { d: 'M5 3H3v2' } },
+      { tag: 'path', attrs: { d: 'M3 19v2h2' } },
+      { tag: 'path', attrs: { d: 'M19 21h2v-2' } },
+      { tag: 'path', attrs: { d: 'M21 5V3h-2' } },
+      { tag: 'rect', attrs: { x: 7, y: 7, width: 10, height: 10, rx: 2 } },
+    ],
+  },
+  'atm-withdraw': {
+    nodes: [
+      { tag: 'rect', attrs: { x: 2, y: 4, width: 20, height: 6, rx: 2 } },
+      { tag: 'path', attrs: { d: 'M12 10v8' } },
+      { tag: 'path', attrs: { d: 'M9 18h6' } },
+      { tag: 'path', attrs: { d: 'M10 14h4' } },
+    ],
+  },
+  'atm-deposit': {
+    nodes: [
+      { tag: 'rect', attrs: { x: 2, y: 4, width: 20, height: 6, rx: 2 } },
+      { tag: 'path', attrs: { d: 'M12 10v8' } },
+      { tag: 'path', attrs: { d: 'M9 14h6' } },
+      { tag: 'path', attrs: { d: 'M10 18h4' } },
+    ],
+  },
 }
 
 const props = defineProps<{

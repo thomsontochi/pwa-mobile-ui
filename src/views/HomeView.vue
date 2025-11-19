@@ -1,23 +1,42 @@
 <script setup lang="ts">
-import AppIcon from '@/components/common/AppIcon.vue'
 import HomeTopBar from '@/components/home/HomeTopBar.vue'
 import HomeShortcuts from '@/components/home/HomeShortcuts.vue'
 import ProductCarousel from '@/components/home/ProductCarousel.vue'
 import AlertBanner from '@/components/home/AlertBanner.vue'
 import QuickActionsGrid from '@/components/home/QuickActionsGrid.vue'
 import ActivityList from '@/components/home/ActivityList.vue'
+import CashbackCard from '@/components/home/CashbackCard.vue'
+import HomeBottomNav from '@/components/home/HomeBottomNav.vue'
+import ActionSheetDrawer from '@/components/home/ActionSheetDrawer.vue'
 
 import {
   accountActivities,
   alertBanners,
   homeShortcuts,
+  cashbackProgress,
   productSlides,
   quickActions,
+  bottomNavItems,
+  actionSheets,
 } from '@/data/homeContent'
+
+import { ref, computed } from 'vue'
+
+const activeSheetId = ref<string | null>(null)
+
+const activeSheet = computed(() => actionSheets.find((sheet) => sheet.id === activeSheetId.value) ?? null)
+
+const openSheet = (id: string) => {
+  activeSheetId.value = id
+}
+
+const closeSheet = () => {
+  activeSheetId.value = null
+}
 </script>
 
 <template>
-  <main class="flex flex-col gap-6">
+  <main class="relative flex flex-col gap-6">
     <HomeTopBar :notifications="7" :messages="2" account-label="•••• 1234" avatar-initials="AU" />
 
     <HomeShortcuts :items="homeShortcuts" />
@@ -30,62 +49,25 @@ import {
 
     <ActivityList :activities="accountActivities" />
 
-    <section class="space-y-3 rounded-3xl bg-brand-card px-5 py-6 shadow-card">
-      <header class="flex items-center justify-between">
-        <div class="flex items-center gap-2 text-brand-text-secondary">
-          <div class="flex h-9 w-9 items-center justify-center rounded-2xl bg-brand-control text-brand-text-primary">
-            <AppIcon name="lock" :stroke-width="2" />
-          </div>
-          <div>
-            <p class="text-sm font-semibold text-brand-text-primary">Cashback</p>
-            <p class="text-xs text-brand-text-secondary">₺500 harcama hedefini tamamla, Cashback kazanmaya başla.</p>
-          </div>
-        </div>
-        <AppIcon name="info" :stroke-width="2" />
-      </header>
+    <CashbackCard :data="cashbackProgress" />
 
-      <div class="space-y-2">
-        <div class="flex items-center justify-between text-xs text-brand-text-secondary">
-          <span>₺500,00 kaldı</span>
-          <span>%0 Tamamlandı</span>
-        </div>
-        <div class="h-2 w-full overflow-hidden rounded-full bg-brand-control">
-          <div class="h-full w-1/6 rounded-full bg-accent-amber"></div>
-        </div>
-      </div>
+    <HomeBottomNav :items="bottomNavItems" active-route="/" />
 
-      <div class="mt-4 flex items-center gap-3 rounded-3xl bg-brand-control px-4 py-4">
-        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-amber/20 text-brand-text-primary">
-          <AppIcon name="sparkles" :stroke-width="2" />
-        </div>
-        <div>
-          <p class="text-sm font-semibold text-brand-text-primary">₺960 anında nakit kazan</p>
-          <p class="text-xs text-brand-text-secondary">Ekim 2025 kampanyasını kaçırma</p>
-        </div>
-      </div>
-    </section>
-
-    <nav class="mt-6 flex items-center justify-between rounded-3xl bg-brand-card px-6 py-4 text-xs text-brand-text-secondary">
-      <button class="flex flex-col items-center gap-1 text-brand-text-primary">
-        <AppIcon name="home" :stroke-width="2" />
-        Ana Sayfa
+    <div class="fixed bottom-28 right-6 flex flex-col gap-3">
+      <button
+        class="rounded-full bg-brand-text-primary px-4 py-2 text-xs font-semibold text-brand-surface shadow-card"
+        @click="openSheet('transfer')"
+      >
+        Para Gönder
       </button>
-      <button class="flex flex-col items-center gap-1">
-        <AppIcon name="qr-code" :stroke-width="2" />
+      <button
+        class="rounded-full bg-brand-control px-4 py-2 text-xs font-semibold text-brand-text-primary shadow-card"
+        @click="openSheet('qr')"
+      >
         QR İşlemleri
       </button>
-      <button class="flex flex-col items-center gap-1">
-        <AppIcon name="send" :stroke-width="2" />
-        Para Transferi
-      </button>
-      <button class="flex flex-col items-center gap-1">
-        <AppIcon name="wallet" :stroke-width="2" />
-        Ödemeler
-      </button>
-      <button class="flex flex-col items-center gap-1">
-        <AppIcon name="credit-card" :stroke-width="2" />
-        Papara Card
-      </button>
-    </nav>
+    </div>
+
+    <ActionSheetDrawer :sheet="activeSheet" :show="!!activeSheet" @close="closeSheet" @select="closeSheet" />
   </main>
 </template>

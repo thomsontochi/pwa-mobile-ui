@@ -1,5 +1,6 @@
 import type {
   AccountActivity,
+  ActionSheet,
   AlertBanner,
   BottomNavItem,
   CashbackProgress,
@@ -25,6 +26,9 @@ export const productSlides: ProductSlide[] = [
     badgeLabel: 'Papara',
     illustration: 'account-tl',
     accentColor: '#2167FF',
+    details: ['Tüm varlıkların tek ekranda', 'Türk Lirası, Kıymetli Madenler, Birikim hesabı'],
+    primaryCta: 'Yatır / Çek',
+    secondaryCta: 'Gönder',
   },
   {
     id: 2,
@@ -33,6 +37,9 @@ export const productSlides: ProductSlide[] = [
     cta: 'Kıymetli Madenler Hesabı Aç',
     illustration: 'precious-metals',
     accentColor: '#FFD60A',
+    details: ['Güncel fiyatlarla al / sat', 'Altın, gümüş ve platin hesapları'],
+    primaryCta: 'Hesap Aç',
+    secondaryCta: 'Detayları Gör',
   },
   {
     id: 3,
@@ -41,6 +48,8 @@ export const productSlides: ProductSlide[] = [
     cta: 'Birikim Hesabı Aç',
     illustration: 'savings-jar',
     accentColor: '#6C63FF',
+    details: ['Esnek hedefler belirle', 'Otomatik tasarruf planları'],
+    primaryCta: 'Birikim Hesabı Aç',
   },
   {
     id: 4,
@@ -49,6 +58,9 @@ export const productSlides: ProductSlide[] = [
     cta: 'Yatırım Hesabı Oluştur',
     illustration: 'investment-portfolio',
     accentColor: '#34C759',
+    details: ['Borsada işlem yap', 'Ücretsiz hesap açılışı'],
+    primaryCta: 'Yatırım Hesabı Oluştur',
+    secondaryCta: 'Detayları Gör',
   },
   {
     id: 5,
@@ -57,6 +69,8 @@ export const productSlides: ProductSlide[] = [
     cta: 'Yatırım Hesabı Oluştur',
     illustration: 'dollar-account',
     accentColor: '#0EA5E9',
+    details: ['Anında kur ile al/sat', 'Dolar birikimlerini takip et'],
+    primaryCta: 'Dolar Hesabı Aç',
   },
   {
     id: 6,
@@ -65,6 +79,8 @@ export const productSlides: ProductSlide[] = [
     cta: 'Detayları görüntüle',
     illustration: 'portfolio-overview',
     accentColor: '#9CA3AF',
+    details: ['Tüm hesapların özeti', 'Anlık değer güncellemeleri'],
+    primaryCta: 'Detayları Görüntüle',
   },
 ]
 
@@ -123,4 +139,30 @@ export const bottomNavItems: BottomNavItem[] = [
   { id: 3, label: 'Para Transferi', icon: 'send', route: '/transfer' },
   { id: 4, label: 'Ödemeler', icon: 'wallet', route: '/payments' },
   { id: 5, label: 'Papara Card', icon: 'credit-card', route: '/card' },
+]
+
+export const actionSheets: ActionSheet[] = [
+  {
+    id: 'transfer',
+    title: 'Para Gönder',
+    options: [
+      { id: 1, label: 'Para Gönder', icon: 'arrow-up-right' },
+      { id: 2, label: 'Para İste', icon: 'hand-coins' },
+      { id: 3, label: 'Yurt Dışı Para Transferi', icon: 'globe' },
+      { id: 4, label: 'Güvenli Ödeme İşlemi', icon: 'shield' },
+      { id: 5, label: 'Düzenli Transfer', icon: 'refresh' },
+    ],
+    cancelLabel: 'Vazgeç',
+  },
+  {
+    id: 'qr',
+    title: 'QR İşlemleri',
+    options: [
+      { id: 1, label: 'QR ile Ödeme Yap', icon: 'qr-code' },
+      { id: 2, label: 'QR ile Ödeme Al', icon: 'scan' },
+      { id: 3, label: "QR ile ATM'den Para Çek", icon: 'atm-withdraw' },
+      { id: 4, label: "QR ile ATM'den Para Yatır", icon: 'atm-deposit' },
+    ],
+    cancelLabel: 'Vazgeç',
+  },
 ]
