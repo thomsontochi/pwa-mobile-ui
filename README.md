@@ -1,6 +1,4 @@
-# virgo-app
-
-This template should help get you started developing with Vue 3 in Vite.
+# pwa-mobile-ui
 
 ## Recommended IDE Setup
 
@@ -52,4 +50,3 @@ npm run test:unit
 ```sh
 npm run lint
 ```
-# pwa-mobile-ui
