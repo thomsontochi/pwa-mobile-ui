@@ -5,6 +5,10 @@ import type { QuickAction } from '@/types/home'
 defineProps<{
   actions: QuickAction[]
 }>()
+
+const emit = defineEmits<{
+  (e: 'select', action: QuickAction): void
+}>()
 </script>
 
 <template>
@@ -22,6 +26,7 @@ defineProps<{
         v-for="action in actions"
         :key="action.id"
         class="flex flex-col items-center justify-center gap-2 rounded-3xl border border-brand-border/50 bg-brand-card px-4 py-5 text-center text-sm font-medium text-brand-text-primary shadow-card transition hover:border-brand-text-primary/40"
+        @click="emit('select', action)"
       >
         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-control text-brand-text-primary">
           <AppIcon :name="action.icon as any" :stroke-width="2" />

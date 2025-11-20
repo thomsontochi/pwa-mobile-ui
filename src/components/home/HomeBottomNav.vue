@@ -2,9 +2,13 @@
 import AppIcon from '@/components/common/AppIcon.vue'
 import type { BottomNavItem } from '@/types/home'
 
-defineProps<{
+const props = defineProps<{
   items: BottomNavItem[]
   activeRoute: string
+}>()
+
+const emit = defineEmits<{
+  (e: 'select', item: BottomNavItem): void
 }>()
 </script>
 
@@ -16,6 +20,7 @@ defineProps<{
       class="flex flex-col items-center gap-1 transition"
       :class="item.route === activeRoute ? 'text-brand-text-primary' : 'text-brand-text-secondary/70'
         + ' hover:text-brand-text-primary'"
+      @click="emit('select', item)"
     >
       <AppIcon :name="item.icon as any" :stroke-width="2" />
       {{ item.label }}

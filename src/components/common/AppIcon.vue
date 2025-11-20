@@ -174,6 +174,31 @@ const iconLibrary: Record<string, IconDefinition> = {
       { tag: 'path', attrs: { d: 'M18.5 13.5 19 15 20.5 15.5 19 16 18.5 17.5 18 16 16.5 15.5 18 15z' } },
     ],
   },
+  'precious-metals': {
+    nodes: [
+      { tag: 'path', attrs: { d: 'M6 15h10l2 4H8z' } },
+      { tag: 'path', attrs: { d: 'M8 11h9l2 4H10z' } },
+      { tag: 'path', attrs: { d: 'M10 7h7l2 4h-9z' } },
+      { tag: 'path', attrs: { d: 'm6 15 2-4' } },
+      { tag: 'path', attrs: { d: 'm12 15 2-4' } },
+      { tag: 'path', attrs: { d: 'm14 19 2-4' } },
+    ],
+  },
+  'investment-account': {
+    nodes: [
+      { tag: 'circle', attrs: { cx: 12, cy: 12, r: 7 } },
+      { tag: 'path', attrs: { d: 'M12 5v7l5.5 1.5' } },
+      { tag: 'path', attrs: { d: 'M7.5 13.5 12 12' } },
+    ],
+  },
+  'dollar-account': {
+    nodes: [
+      { tag: 'rect', attrs: { x: 5, y: 7, width: 14, height: 10, rx: 2 } },
+      { tag: 'path', attrs: { d: 'M7 7V5a2 2 0 0 1 2-2h8v4' } },
+      { tag: 'path', attrs: { d: 'M12 10c-1.1 0-2 .672-2 1.5s.9 1.5 2 1.5 2 .672 2 1.5-.9 1.5-2 1.5-2-.672-2-1.5' } },
+      { tag: 'path', attrs: { d: 'M12 9.5v6' } },
+    ],
+  },
   globe: {
     nodes: [
       { tag: 'circle', attrs: { cx: 12, cy: 12, r: 9 } },

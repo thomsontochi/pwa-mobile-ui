@@ -33,6 +33,20 @@ const openSheet = (id: string) => {
 const closeSheet = () => {
   activeSheetId.value = null
 }
+
+const handleQuickAction = (label: string) => {
+  if (label.includes('Para Gönder') || label.includes('Para İste')) {
+    openSheet('transfer')
+  }
+}
+
+const handleNavSelect = (route: string) => {
+  if (route === '/transfer') {
+    openSheet('transfer')
+  } else if (route === '/qr') {
+    openSheet('qr')
+  }
+}
 </script>
 
 <template>
@@ -45,28 +59,13 @@ const closeSheet = () => {
 
     <AlertBanner v-for="banner in alertBanners" :key="banner.id" :item="banner" />
 
-    <QuickActionsGrid :actions="quickActions" />
+    <QuickActionsGrid :actions="quickActions" @select="handleQuickAction($event.label)" />
 
     <ActivityList :activities="accountActivities" />
 
     <CashbackCard :data="cashbackProgress" />
 
-    <HomeBottomNav :items="bottomNavItems" active-route="/" />
-
-    <div class="fixed bottom-28 right-6 flex flex-col gap-3">
-      <button
-        class="rounded-full bg-brand-text-primary px-4 py-2 text-xs font-semibold text-brand-surface shadow-card"
-        @click="openSheet('transfer')"
-      >
-        Para Gönder
-      </button>
-      <button
-        class="rounded-full bg-brand-control px-4 py-2 text-xs font-semibold text-brand-text-primary shadow-card"
-        @click="openSheet('qr')"
-      >
-        QR İşlemleri
-      </button>
-    </div>
+    <HomeBottomNav :items="bottomNavItems" active-route="/" @select="handleNavSelect($event.route)" />
 
     <ActionSheetDrawer :sheet="activeSheet" :show="!!activeSheet" @close="closeSheet" @select="closeSheet" />
   </main>

@@ -7,6 +7,7 @@ export interface HomeShortcut {
 
 export interface ProductSlide {
   id: number
+  eyebrow?: string
   title: string
   subtitle: string
   cta: string
