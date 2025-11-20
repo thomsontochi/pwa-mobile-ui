@@ -22,6 +22,11 @@ const router = createRouter({
       name: 'card-promo',
       component: () => import('../views/CardPromoView.vue'),
     },
+    {
+      path: '/payments/summary',
+      name: 'payments-summary',
+      component: () => import('../views/PaymentsSummaryView.vue'),
+    },
   ],
 })
 
