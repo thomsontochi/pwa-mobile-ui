@@ -31,6 +31,8 @@ export interface QuickAction {
   id: number
   label: string
   icon: string
+  route?: string
+  sheetId?: string
 }
 
 export interface AccountActivity {

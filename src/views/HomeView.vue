@@ -21,10 +21,14 @@ import {
 } from '@/data/homeContent'
 
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import type { BottomNavItem, QuickAction } from '@/types/home'
 
 const activeSheetId = ref<string | null>(null)
 
 const activeSheet = computed(() => actionSheets.find((sheet) => sheet.id === activeSheetId.value) ?? null)
+
+const router = useRouter()
 
 const openSheet = (id: string) => {
   activeSheetId.value = id
@@ -34,17 +38,30 @@ const closeSheet = () => {
   activeSheetId.value = null
 }
 
-const handleQuickAction = (label: string) => {
-  if (label.includes('Para Gönder') || label.includes('Para İste')) {
-    openSheet('transfer')
+const handleQuickAction = (action: QuickAction) => {
+  if (action.route) {
+    router.push(action.route)
+    return
+  }
+
+  if (action.sheetId) {
+    openSheet(action.sheetId)
   }
 }
 
-const handleNavSelect = (route: string) => {
-  if (route === '/transfer') {
+const handleNavSelect = (item: BottomNavItem) => {
+  if (item.route === '/transfer') {
     openSheet('transfer')
-  } else if (route === '/qr') {
+    return
+  }
+
+  if (item.route === '/qr') {
     openSheet('qr')
+    return
+  }
+
+  if (item.route) {
+    router.push(item.route)
   }
 }
 </script>
@@ -59,13 +76,13 @@ const handleNavSelect = (route: string) => {
 
     <AlertBanner v-for="banner in alertBanners" :key="banner.id" :item="banner" />
 
-    <QuickActionsGrid :actions="quickActions" @select="handleQuickAction($event.label)" />
+    <QuickActionsGrid :actions="quickActions" @select="handleQuickAction($event)" />
 
     <ActivityList :activities="accountActivities" />
 
     <CashbackCard :data="cashbackProgress" />
 
-    <HomeBottomNav :items="bottomNavItems" active-route="/" @select="handleNavSelect($event.route)" />
+    <HomeBottomNav :items="bottomNavItems" active-route="/" @select="handleNavSelect($event)" />
 
     <ActionSheetDrawer :sheet="activeSheet" :show="!!activeSheet" @close="closeSheet" @select="closeSheet" />
   </main>

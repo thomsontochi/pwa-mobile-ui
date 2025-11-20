@@ -22,17 +22,19 @@ const emit = defineEmits<{
     </header>
 
     <div class="grid grid-cols-2 gap-3">
-      <button
+      <component
         v-for="action in actions"
         :key="action.id"
+        :is="action.route ? 'RouterLink' : 'button'"
+        :to="action.route"
         class="flex flex-col items-center justify-center gap-2 rounded-3xl border border-brand-border/50 bg-brand-card px-4 py-5 text-center text-sm font-medium text-brand-text-primary shadow-card transition hover:border-brand-text-primary/40"
-        @click="emit('select', action)"
+        @click="!action.route && emit('select', action)"
       >
         <div class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-control text-brand-text-primary">
           <AppIcon :name="action.icon as any" :stroke-width="2" />
         </div>
         <span class="leading-tight text-brand-text-secondary">{{ action.label }}</span>
-      </button>
+      </component>
     </div>
   </section>
 </template>

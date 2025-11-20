@@ -103,10 +103,10 @@ export const alertBanners: AlertBanner[] = [
 ]
 
 export const quickActions: QuickAction[] = [
-  { id: 1, label: 'Hesabına Para Yatır', icon: 'arrow-down-circle' },
-  { id: 2, label: 'Papara Card İste', icon: 'credit-card' },
-  { id: 3, label: 'Para Gönder', icon: 'arrow-up-right' },
-  { id: 4, label: 'Para İste', icon: 'hand-coins' },
+  { id: 1, label: 'Hesabına Para Yatır', icon: 'arrow-down-circle', sheetId: 'transfer' },
+  { id: 2, label: 'Papara Card İste', icon: 'credit-card', route: '/card/promo' },
+  { id: 3, label: 'Para Gönder', icon: 'arrow-up-right', sheetId: 'transfer' },
+  { id: 4, label: 'Para İste', icon: 'hand-coins', sheetId: 'transfer' },
 ]
 
 export const accountActivities: AccountActivity[] = [
@@ -146,7 +146,7 @@ export const bottomNavItems: BottomNavItem[] = [
   { id: 2, label: 'QR İşlemleri', icon: 'qr-code', route: '/qr' },
   { id: 3, label: 'Para Transferi', icon: 'send', route: '/transfer' },
   { id: 4, label: 'Ödemeler', icon: 'wallet', route: '/payments' },
-  { id: 5, label: 'Papara Card', icon: 'credit-card', route: '/card' },
+  { id: 5, label: 'Papara Card', icon: 'credit-card', route: '/card/promo' },
 ]
 
 export const actionSheets: ActionSheet[] = [
