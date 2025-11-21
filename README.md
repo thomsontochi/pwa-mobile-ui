@@ -1,5 +1,27 @@
 # pwa-mobile-ui
 
+## Overview
+
+This repo contains a Vue 3 + Vite mobile experience that recreates the latest Papara home flow with Tailwind-based theming and PWA-ready scaffolding. The implementation now includes:
+
+- **Home dashboard shell** with top bar, horizontally scrollable shortcuts, product carousel (slides 1–3 populated), alerts, quick actions, account activity list, cashback card, and bottom navigation.
+- **Dynamic action sheets** that open from quick actions or bottom-nav items for transfer and QR flows.
+- **Card promo route** (`/card/promo`) showcasing the Akbank ATM promotion with responsive layout and CTA stubs.
+- **Payments summary route** (`/payments/summary`) highlighting monthly spend insights with donut visualization.
+- Centralized design tokens in Tailwind config and reusable icon component library for vector illustrations.
+
+> **Note:** Additional carousel slides (4–9) can be filled in once design assets arrive by extending `productSlides` in `src/data/homeContent.ts`.
+
+## Navigation Map
+
+| Path | View | Notes |
+| --- | --- | --- |
+| `/` | `HomeView` | Main dashboard with carousels, banners, quick actions, and drawers. |
+| `/card/promo` | `CardPromoView` | Akbank ATM promo screen; linked from quick action & bottom nav. |
+| `/payments/summary` | `PaymentsSummaryView` | Monthly spending donut summary; linked from quick action & bottom nav. |
+
+Quick actions leverage extra metadata (`route`, `sheetId`) defined in `src/data/homeContent.ts` to either push routes or open the appropriate action sheet. Bottom navigation uses the same data source for consistency.
+
 ## Recommended IDE Setup
 
 [VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
